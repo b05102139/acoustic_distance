@@ -1,5 +1,4 @@
 import numpy as np
-from sklearn import preprocessing
 from scipy.io.wavfile import read
 from python_speech_features import mfcc
 from python_speech_features import delta
@@ -23,8 +22,6 @@ def acoustic_distance(file1, file2):
                       preemph=0.97,
                       numcep = 12,
                       appendEnergy = True)
-  #mfcc_feature1 = preprocessing.scale(mfcc_feature1) # change to cmvn
-  #mfcc_feature2 = preprocessing.scale(mfcc_feature2) # change to cmvn
   mfcc_feature1 = cmvn(mfcc_feature1, variance_normalization=True)
   mfcc_feature2 = cmvn(mfcc_feature2, variance_normalization=True)
   deltas1 = delta(mfcc_feature1, 2)
