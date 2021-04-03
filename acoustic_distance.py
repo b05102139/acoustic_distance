@@ -23,11 +23,6 @@ def acoustic_distance(file1, file2):
                       preemph=0.97,
                       numcep = 12,
                       appendEnergy = True)
-  #mfcc_feature1 = preprocessing.scale(mfcc_feature1) # change to cmvn
-  #mfcc_feature2 = preprocessing.scale(mfcc_feature2) # change to cmvn
-  # CMVN BEFORE DELTA OKAY?
-  #mfcc_feature1 = cmvn(mfcc_feature1, variance_normalization=True)
-  #mfcc_feature2 = cmvn(mfcc_feature2, variance_normalization=True)
   deltas1 = delta(mfcc_feature1, 2)
   double_deltas1 = delta(deltas1, 2)
   deltas2 = delta(mfcc_feature2, 2)
