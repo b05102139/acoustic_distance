@@ -1,14 +1,37 @@
-import librosa
+import numpy as np
+from sklearn import preprocessing
+from scipy.io.wavfile import read
+from python_speech_features import mfcc
+from python_speech_features import delta
 from speechpy.processing import cmvn
+from dtw import dtw
 
 def acoustic_distance(file1, file2):
-  file1, sr1 = librosa.load(file1)
-  file2, sr2 = librosa.load(file2)
-  preemph1 = librosa.effects.preemphasis(file1)
-  preemph2 = librosa.effects.preemphasis(file2)
-  mfcc1 = librosa.feature.mfcc(y=preemph1, sr=sr1, dct_type=3, n_mfcc=12, hop_length=int(0.010*sr1), n_fft=int(0.025*sr1))
-  mfcc2 = librosa.feature.mfcc(y=preemph2, sr=sr2, dct_type=3, n_mfcc=12, hop_length=int(0.010*sr2), n_fft=int(0.025*sr2))
-  mfcc1 = cmvn(mfcc1, variance_normalization=True)
-  mfcc2 = cmvn(mfcc2, variance_normalization=True)
-  dist, cost = librosa.sequence.dtw(mfcc1, mfcc2)
-  return (dist[cost[-1,0], cost[-1,1]]) / (mfcc1.shape[1] + mfcc2.shape[1])
+  rate1, audio1 = read(file1)
+  rate2, audio2 = read(file2)  
+  mfcc_feature1 = mfcc(audio1,
+                      rate1,
+                      winlen = 0.025,
+                      winstep = 0.01,
+                      preemph=0.97,
+                      numcep = 12,
+                      appendEnergy = True)
+  mfcc_feature2 = mfcc(audio2,
+                      rate2,
+                      winlen = 0.025,
+                      winstep = 0.01,
+                      preemph=0.97,
+                      numcep = 12,
+                      appendEnergy = True)
+  #mfcc_feature1 = preprocessing.scale(mfcc_feature1) # change to cmvn
+  #mfcc_feature2 = preprocessing.scale(mfcc_feature2) # change to cmvn
+  mfcc_feature1 = cmvn(mfcc_feature1, variance_normalization=True)
+  mfcc_feature2 = cmvn(mfcc_feature2, variance_normalization=True)
+  deltas1 = delta(mfcc_feature1, 2)
+  double_deltas1 = delta(deltas1, 2)
+  deltas2 = delta(mfcc_feature2, 2)
+  double_deltas2 = delta(deltas2, 2)
+  combined1 = np.hstack((mfcc_feature1, deltas1, double_deltas1))
+  combined2 = np.hstack((mfcc_feature2, deltas2, double_deltas2))
+  res = dtw(combined1, combined2, window_type="slantedband", window_args={"window_size" : 200}, distance_only=True)
+  return res.distance / (combined1.shape[1] + combined2.shape[1])
