@@ -13,16 +13,20 @@ def acoustic_distance(file1, file2):
                       rate1,
                       winlen = 0.025,
                       winstep = 0.01,
-                      preemph=0.97,
+                      preemph = 0.97,
                       numcep = 12,
-                      appendEnergy = True)
+                      appendEnergy = True,
+                      winfunc = np.hamming,
+                      nfft=1024)
   mfcc_feature2 = mfcc(audio2,
                       rate2,
                       winlen = 0.025,
                       winstep = 0.01,
-                      preemph=0.97,
+                      preemph = 0.97,
                       numcep = 12,
-                      appendEnergy = True)
+                      appendEnergy = True,
+                      winfunc = np.hamming,
+                      nfft=1024)
   deltas1 = delta(mfcc_feature1, 2)
   double_deltas1 = delta(deltas1, 2)
   deltas2 = delta(mfcc_feature2, 2)
