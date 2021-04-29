@@ -1,0 +1,11 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "acoustic_distance"
+author = "Ryan Soh-Eun Shim"
+author-email = "soh-eun.shim@student.uni-tuebingen.de"
+classifiers = [ "License :: OSI Approved :: Apache Software License",]
+description-file = "README.md"
+
