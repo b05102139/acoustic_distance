@@ -7,6 +7,9 @@ from speechpy.processing import cmvn
 from dtw import dtw
 
 def acoustic_distance(file1, file2):
+  '''
+  Computes the acoustic distance between audio files based on Bartelds (2020).
+  '''
   rate1, audio1 = read(file1)
   rate2, audio2 = read(file2)  
   mfcc_feature1 = mfcc(audio1,
