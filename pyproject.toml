@@ -6,6 +6,7 @@ build-backend = "flit_core.buildapi"
 module = "acoustic_distance"
 author = "Ryan Soh-Eun Shim"
 author-email = "soh-eun.shim@student.uni-tuebingen.de"
+home-page = "https://github.com/b05102139/acoustic_distance"
 classifiers = [ "License :: OSI Approved :: Apache Software License",]
 description-file = "README.md"
 
