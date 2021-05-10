@@ -8,7 +8,7 @@ from acoustic_distance.acoustic_distance import acoustic_distance
 acoustic_distance("C:/Users/USER/Downloads/ipa_vowels/a.wav", "C:/Users/USER/Downloads/ipa_vowels/e.wav")
 ```
 
-Where the result would yield 10.494419525578806.
+The result of the above would yield 10.494419525578806.
 
 # References
 Bartelds, M., Richter, C., Liberman, M., & Wieling, M. (2020). A new acoustic-based pronunciation distance measure. Frontiers in Artificial Intelligence, 3, 39.

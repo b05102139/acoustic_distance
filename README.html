@@ -353,12 +353,11 @@ pre code {
 
 <div id="mfcc-based-acoustic-distance" class="section level1">
 <h1>MFCC-based Acoustic Distance</h1>
-<p>This module is a Python implementation of the acoustic distance as described in Bartelds et al. (2020). At its core, it applies dynamic time warping upon audio that is represented as Mel-frequency cepstral coefficients, which additionally go through a number or pre- and post-processing steps. The module can be imported and used as below:</p>
+<p>This module is a Python implementation of the acoustic distance as described in Bartelds et al. (2020). At its core, it applies dynamic time warping upon audio that is represented as Mel-frequency cepstral coefficients, which additionally go through a number or pre- and post-processing steps. The module can be imported and used as below, where the audio should be wav files:</p>
 <pre class="python"><code>from acoustic_distance.acoustic_distance import acoustic_distance
 
-acoustic_distance(&quot;C:/Users/USER/Downloads/ipa_vowels/a.wav&quot;, &quot;C:/Users/USER/Downloads/ipa_vowels/a.wav&quot;)
-# 10.494419525578806</code></pre>
-<p>Where,</p>
+acoustic_distance(&quot;C:/Users/USER/Downloads/ipa_vowels/a.wav&quot;, &quot;C:/Users/USER/Downloads/ipa_vowels/e.wav&quot;)</code></pre>
+<p>The result of the above process would yield 10.494419525578806.</p>
 </div>
 <div id="references" class="section level1">
 <h1>References</h1>
